@@ -169,5 +169,9 @@ class CashierTest {
         assertEquals(cashier.getInventory(), empty);
         assertEquals(cashier.getBalance(), 87);
         assertEquals(cashier.getScore(), 15);
+        cashier.transaction("Bob");
+        assertEquals(cashier.getInventory(), empty);
+        assertEquals(cashier.getBalance(), 87);
+        assertEquals(cashier.getScore(), 15);
     }
 }
