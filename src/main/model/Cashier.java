@@ -41,6 +41,7 @@ public class Cashier {
         return saveName;
     }
 
+    // REQUIRES: quantity > 0
     // MODIFIES: this
     // EFFECTS: adds item to inventory if balance is sufficient and returns true,
     //          else return false
@@ -58,14 +59,14 @@ public class Cashier {
         return false;
     }
 
-    // REQUIRES: amount >= 0
+    // REQUIRES: amount > 0
     // MODIFIES: this
     // EFFECTS: increases cashier balance by amount
     public void addBalance(int amount) {
         this.balance += amount;
     }
 
-    // REQUIRES: amount >= 0
+    // REQUIRES: amount > 0
     // MODIFIES: this
     // EFFECTS: subtracts cashier balance by amount
     public void removeBalance(int amount) {
@@ -87,6 +88,7 @@ public class Cashier {
         return inventory;
     }
 
+    // REQUIRES: !inventory.isEmpty()
     // EFFECTS: returns frequency of that item in the list
     public Integer itemFrequency(Item item) {
         int frequency = 0;
@@ -99,12 +101,13 @@ public class Cashier {
         return frequency;
     }
 
-
+    // REQUIRES: item with item name itemName must be in inventory
+    // MODIFIES: this
     // EFFECTS: adds balance and score for transaction according to the score calculation of each item
     public void transaction(String itemName) {
         for (Item i : inventory) {
             if (i.getName().equals(itemName)) {
-                inventory.remove(i);
+                this.inventory.remove(i);
                 addBalance(i.getSellPrice());
                 addScore(i.scoreCalculation());
                 break;
