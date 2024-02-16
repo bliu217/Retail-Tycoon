@@ -26,7 +26,7 @@ than the company I worked for (in terms of user interface).
 
 ## User Stories
 
-- As a user, I want to add items to a checkout list
+- As a user, I want to checkout the items of the customer
 - As a user, I want to be able to see a list of my high scores
 - As a user, I want to purchase goods for my store and manage inventory
-- As a user, I want to see how much profit I have made so far
+- As a user, I want to see my score and store balance

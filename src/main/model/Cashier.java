@@ -30,6 +30,9 @@ public class Cashier {
         this.score += amount;
     }
 
+    // REQUIRES: amount > 0
+    // MODIFIES: this
+    // EFFECTS: subtracts score by amount
     public void setSaveName(String saveName) {
         this.saveName = saveName;
     }
@@ -55,22 +58,36 @@ public class Cashier {
         return false;
     }
 
+    // REQUIRES: amount >= 0
+    // MODIFIES: this
+    // EFFECTS: increases cashier balance by amount
     public void addBalance(int amount) {
         this.balance += amount;
     }
 
+    // REQUIRES: amount >= 0
+    // MODIFIES: this
+    // EFFECTS: subtracts cashier balance by amount
+    public void removeBalance(int amount) {
+        this.balance -= amount;
+    }
+
+    // EFFECTS: returns balance of cashier
     public Integer getBalance() {
         return balance;
     }
 
+    // EFFECTS: returns score of the cashier
     public Integer getScore() {
         return score;
     }
 
+    // EFFECTS: returns current inventory of cashier
     public List<Item> getInventory() {
         return inventory;
     }
 
+    // EFFECTS: returns frequency of that item in the list
     public Integer itemFrequency(Item item) {
         int frequency = 0;
         for (Item i : inventory) {
@@ -82,16 +99,14 @@ public class Cashier {
         return frequency;
     }
 
-    public void viewInventory() {
-        for (Item i : inventory) {
-            System.out.println(i.getName() + " | x" + itemFrequency(i));
-        }
-    }
 
-    public void removeInventory(String itemName) {
+    // EFFECTS: adds balance and score for transaction according to the score calculation of each item
+    public void transaction(String itemName) {
         for (Item i : inventory) {
             if (i.getName().equals(itemName)) {
                 inventory.remove(i);
+                addBalance(i.getSellPrice());
+                addScore(i.scoreCalculation());
                 break;
             }
         }
