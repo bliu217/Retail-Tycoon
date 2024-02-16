@@ -9,11 +9,17 @@ public class Customer {
     private Integer balance;
     //NOTE TO SELF: remember to implement function with customer balance.
 
+
     // EFFECTS: constructs a customer with given name and balance with empty list of items
     public Customer(String n, Integer b) {
         this.name = n;
         this.items = new ArrayList<>();
         this.balance = b;
+    }
+
+    // EFFECTS: returns customer balance
+    public Integer getBalance() {
+        return balance;
     }
 
     // MODIFIES: this
@@ -32,11 +38,8 @@ public class Customer {
         return name;
     }
 
-//    // EFFECTS: returns the balance of the customer
-//    public Integer getBalance() {
-//        return balance;
-//    }
 
+    // REQUIRES: customer items is not empty
     // MODIFIES: this
     // EFFECTS: search the customer items for the item given and removes it. returns true if item is in list else false
     public Boolean searchAndRemoveItem(String item) {
@@ -50,6 +53,7 @@ public class Customer {
         return false;
     }
 
+    // REQUIRES: customer items is not empty
     // EFFECTS: sums and returns the total sell price of all the items in the customer's shopping cart
     public Integer itemProfits() {
         Integer sum = 0;

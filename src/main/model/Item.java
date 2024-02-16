@@ -5,6 +5,7 @@ public class Item {
     private Integer sellPrice;
     private Integer buyPrice;
 
+    // EFFECTS: constructs an Item with name, a customer price, and an inventory price
     public Item(String name, Integer sellPrice, Integer buyPrice) {
         this.name = name;
         this.sellPrice = sellPrice;
