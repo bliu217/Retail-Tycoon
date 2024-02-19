@@ -122,12 +122,14 @@ public class CashierGame {
         while (runGame) {
             generateCustomer();
             System.out.println(customer.getName() + ": Scan these items please");
-
-
             checkout();
-
             if (cashier.getBalance() <= 0 | strikeNumber == 3) {
                 break;
+            }
+
+            if (cashier.getInventory().isEmpty()) {
+                System.out.println("Your inventory is empty, please restock!\n");
+                viewStore();
             }
             nextOptions();
 
@@ -143,10 +145,10 @@ public class CashierGame {
     // EFFECTS: menu in-between actions
     public void nextOptions() {
         System.out.println("Current Balance: $" + cashier.getBalance());
-        System.out.println("Current Score: " + cashier.getScore() + " pts");
+        System.out.println("Current Score: " + cashier.getScore() + " pts\n");
         System.out.println("open business [o]");
         System.out.println("restock inventory [r]");
-        System.out.println("view inventory [i]");
+        System.out.println("view inventory [i]\n");
 
         String nextCommand = input.next();
         nextCommand = nextCommand.toLowerCase();
@@ -174,7 +176,7 @@ public class CashierGame {
             System.out.println("Add to checkout: (type items)");
             String itemInput = input.next();
             if (customer.searchAndRemoveItem(itemInput)) {
-                System.out.println("Success!");
+                System.out.println("Success!\n");
                 cashier.transaction(itemInput);
                 checkout();
             } else {
@@ -195,7 +197,7 @@ public class CashierGame {
 
     // EFFECTS: prints out the list of customer items needed to be scanned
     public void scanItems() {
-        System.out.println("-----------------------------");
+        System.out.println("----------Checkout-----------");
         for (Item i : customer.getItems()) {
             System.out.println(i.getName());
         }
@@ -205,8 +207,7 @@ public class CashierGame {
     // EFFECTS: startup message for first creating a new game, includes buying first inventory for shop
     public void newGameMessage() {
         System.out.println("Welcome to your first shift: " + cashier.getSaveName() + "!");
-        System.out.println("Let's buy some inventory for your store.");
-        System.out.println("Buy something u got 100 dollars");
+        System.out.println("Let's buy some inventory for your store.\n");
         viewStore();
         System.out.println("Here comes your first customer.");
 
@@ -218,7 +219,12 @@ public class CashierGame {
         int option = input.nextInt();
 
         if (option == 0) {
-            runGame = true;
+            if (cashier.getInventory().isEmpty()) {
+                System.out.println("Your inventory is empty, please restock!\n");
+                processStore();
+            } else {
+                runGame = true;
+            }
         } else {
 
             int index = option - 1;
@@ -237,13 +243,14 @@ public class CashierGame {
 
     // EFFECTS: displays the available items for cashier to buy for inventory
     public void viewStore() {
+        System.out.println("------------Store------------");
         System.out.println("Balance: $" + cashier.getBalance());
         for (int i = 0; i < itemList.size(); i++) {
             Item item = itemList.get(i);
             int index = i + 1;
-            System.out.println("[" + index + "] " + item.getName() + " |$" + item.getBuyPrice());
+            System.out.println("\t" + "[" + index + "] " + item.getName() + " |$" + item.getBuyPrice());
         }
-
+        System.out.println("-----------------------------\n");
         processStore();
         nextOptions();
 
@@ -251,6 +258,7 @@ public class CashierGame {
 
     // EFFECTS: prints out the highscores of current session
     public void viewScores() {
+        System.out.println("---------High Scores---------\n");
         printHighscores();
         System.out.println("return to menu [M]");
 
@@ -271,7 +279,7 @@ public class CashierGame {
 
     // EFFECTS: prints out the messages for the main menu on startup
     public void startDisplay() {
-        System.out.println("Welcome to the Cashier Game");
+        System.out.println("Welcome to the Cashier Game\n");
         System.out.println("New Game [press N]");
         System.out.println("View Scores [press S]");
         System.out.println("Exit Game [press 0]");
@@ -303,7 +311,7 @@ public class CashierGame {
     public void printHighscores() {
 
         if (highscores.isEmpty()) {
-            System.out.println("No recorded scores");
+            System.out.println("No recorded scores\n");
         }
 
         for (int i = 0; i < highscores.size(); i++) {
