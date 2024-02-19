@@ -97,7 +97,6 @@ public class Cashier {
                 frequency++;
             }
         }
-
         return frequency;
     }
 
