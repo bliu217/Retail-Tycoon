@@ -1,26 +1,31 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cashier {
+// Represents the user with their score, name, and an inventory list of items
+public class Cashier implements Writable {
 
     private Integer score;
     private String saveName;
     private Integer balance;
     private List<Item> inventory;
-
-    public static final Integer START_BALANCE = 100; //start game with this balance
+    private List<Item> itemList;
 
 
     // EFFECTS: Construct a new cashier with score of 0, no saveName, a balance of START_BALANCE,
     //          and an empty inventory.
 
-    public Cashier() {
-        this.score = 0;
+    public Cashier(int score, int balance) {
+        this.score = score;
         this.saveName = null;
-        this.balance = START_BALANCE;
+        this.balance = balance;
         this.inventory = new ArrayList<>();
+        initItems();
     }
 
     // REQUIRES: amount > 0
@@ -30,15 +35,19 @@ public class Cashier {
         this.score += amount;
     }
 
-    // REQUIRES: amount > 0
     // MODIFIES: this
-    // EFFECTS: subtracts score by amount
+    // EFFECTS: sets the saveName of the cashier
     public void setSaveName(String saveName) {
         this.saveName = saveName;
     }
 
+    // EFFECTS: returns the saveName of the cashier
     public String getSaveName() {
         return saveName;
+    }
+
+    public void addInventory(Item i) {
+        this.inventory.add(i);
     }
 
     // REQUIRES: quantity > 0
@@ -113,4 +122,60 @@ public class Cashier {
             }
         }
     }
+
+    // EFFECTS: initializes the items used in the game
+    public List<Item> initItems() {
+        itemList = new ArrayList<>();
+
+        Item banana = new Item("Banana", 3, 1);
+        Item dogFood = new Item("DogFood", 24, 14);
+        Item detergent = new Item("Detergent", 10, 5);
+        Item notebook = new Item("Notebook", 16, 9);
+        Item microwave = new Item("Microwave", 40, 30);
+        Item water = new Item("Goodwater", 4, 1);
+
+        itemList.add(banana);
+        itemList.add(dogFood);
+        itemList.add(detergent);
+        itemList.add(notebook);
+        itemList.add(microwave);
+        itemList.add(water);
+
+        return itemList;
+
+    }
+
+    // REQUIRES: item with given name exists in the list of items
+    // EFFECTS: returns the properties of the item with the given item
+    public Item stringToItem(String name) {
+        for (Item i : itemList) {
+            if (i.getName().equals(name)) {
+                return i;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("saveName", saveName);
+        jsonObject.put("score", score);
+        jsonObject.put("balance", balance);
+        jsonObject.put("inventory", inventoryToJson());
+
+        return jsonObject;
+    }
+
+    private JSONArray inventoryToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Item i : inventory) {
+            jsonArray.put(i.toJson());
+        }
+
+        return jsonArray;
+    }
+
 }

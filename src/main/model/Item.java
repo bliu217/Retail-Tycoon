@@ -1,6 +1,10 @@
 package model;
 
-public class Item {
+import org.json.JSONObject;
+import persistence.Writable;
+
+// Represents an item in the store
+public class Item implements Writable {
     private String name;
     private Integer sellPrice;
     private Integer buyPrice;
@@ -39,4 +43,10 @@ public class Item {
     }
 
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", getName());
+        return jsonObject;
+    }
 }

@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents a customer in the store with a name and a list of items
 public class Customer {
     private String name;
     private List<Item> items;

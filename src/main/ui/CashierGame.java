@@ -5,6 +5,11 @@ import model.Cashier;
 import model.Customer;
 import model.Item;
 
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,22 +20,32 @@ import java.util.Random;
 //import java.awt.event.KeyEvent;
 //import javax.swing.JFrame;
 
-
+// Represents the application of the game
 public class CashierGame {
+
+    private static final String JSON_SOURCE = "./data/cashier.json";
 
     private Cashier cashier;
     private final List<Cashier> highscores;
     private List<String> customerNames;
     private List<Item> itemList;
     private boolean runGame;
+    private boolean freshGame;
     private Scanner input;
     Random random = new Random();
     private Customer customer;
     private int strikeNumber;
+    private JsonWriter writer;
+    private JsonReader reader;
+
+
+    public static final Integer START_BALANCE = 100; //start game with this balance
 
     // EFFECTS: constructs a new game with a new highscore list
     public CashierGame() {
         highscores = new ArrayList<>();
+        writer = new JsonWriter(JSON_SOURCE);
+        reader = new JsonReader(JSON_SOURCE);
         runCashierGame();
     }
 
@@ -43,7 +58,8 @@ public class CashierGame {
         nextCommand = nextCommand.toLowerCase();
 
         if (nextCommand.equals("n")) {
-            init();
+            freshGame = true;
+            cashier = new Cashier(0, START_BALANCE);
             System.out.println("Enter save name: ");
             cashier.setSaveName(input.next());
             playGame();
@@ -51,8 +67,31 @@ public class CashierGame {
             viewScores();
         } else if (nextCommand.equals("0")) {
             System.exit(0);
+        } else if (nextCommand.equals("l")) {
+            loadGame();
+            freshGame = false;
+            playGame();
         } else {
             runCashierGame();
+        }
+    }
+
+    private void loadGame() {
+        try {
+            cashier = reader.read();
+        } catch (IOException e) {
+            System.out.println("Unable to load progress: file error");
+        }
+    }
+
+    private void saveGame() {
+        try {
+            writer.open();
+            writer.write(cashier);
+            writer.close();
+            System.out.println("Progress saved");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save progress: file error");
         }
     }
 
@@ -69,23 +108,10 @@ public class CashierGame {
 
     // EFFECTS: initializes the items used in the game
     private void initItems() {
-        itemList = new ArrayList<>();
-
-        Item banana = new Item("Banana", 3, 1);
-        Item dogFood = new Item("DogFood", 24, 14);
-        Item detergent = new Item("Detergent", 10, 5);
-        Item notebook = new Item("Notebook", 16, 9);
-        Item microwave = new Item("Microwave", 40, 30);
-        Item water = new Item("Goodwater", 4, 1);
-
-        itemList.add(banana);
-        itemList.add(dogFood);
-        itemList.add(detergent);
-        itemList.add(notebook);
-        itemList.add(microwave);
-        itemList.add(water);
+        itemList = cashier.initItems();
 
     }
+
 
 
     // EFFECTS: Generates a customer with name from customerNames and some random balance
@@ -113,12 +139,21 @@ public class CashierGame {
 
     }
 
+    private void init() {
+        if (freshGame) {
+            newGameMessage();
+        } else {
+            System.out.println("Welcome back: " + cashier.getSaveName());
+            nextOptions();
+        }
+    }
+
     // EFFECTS: runs the loop of the game. breaks out if cashier balance <=0 or 3 strikes while performing checkouts.
     private void playGame() {
+        strikeNumber = 0;
         createCustomers();
         initItems();
-        newGameMessage();
-
+        init();
         while (runGame) {
             generateCustomer();
             System.out.println(customer.getName() + ": Scan these items please");
@@ -132,24 +167,25 @@ public class CashierGame {
                 viewStore();
             }
             nextOptions();
-
-
         }
-
         System.out.println("Game Over!");
         addHighscore(cashier);
         runCashierGame();
-
     }
 
-    // EFFECTS: menu in-between actions
-    private void nextOptions() {
+    private void menuDisplay() {
         System.out.println("Current Balance: $" + cashier.getBalance());
         System.out.println("Current Score: " + cashier.getScore() + " pts\n");
         System.out.println("open business [o]");
         System.out.println("restock inventory [r]");
-        System.out.println("view inventory [i]\n");
+        System.out.println("view inventory [i]");
+        System.out.println("save [s]");
+        System.out.println("quit game [0]");
+    }
 
+    // EFFECTS: menu in-between actions
+    private void nextOptions() {
+        menuDisplay();
         String nextCommand = input.next();
         nextCommand = nextCommand.toLowerCase();
 
@@ -159,8 +195,13 @@ public class CashierGame {
             viewStore();
         } else if (nextCommand.equals("i")) {
             viewInventory();
-
             nextOptions();
+        } else if (nextCommand.equals("s")) {
+            saveGame();
+            nextOptions();
+        } else if (nextCommand.equals("0")) {
+            System.out.println("Quitting game...");
+            System.exit(0);
         } else {
             nextOptions();
         }
@@ -271,16 +312,12 @@ public class CashierGame {
         }
     }
 
-    // EFFECTS: initializes main cashier and strikeNumber
-    private void init() {
-        cashier = new Cashier();
-        strikeNumber = 0;
-    }
 
     // EFFECTS: prints out the messages for the main menu on startup
     private void startDisplay() {
         System.out.println("Welcome to the Cashier Game\n");
         System.out.println("New Game [press N]");
+        System.out.println("Load Game [press L]");
         System.out.println("View Scores [press S]");
         System.out.println("Exit Game [press 0]");
     }

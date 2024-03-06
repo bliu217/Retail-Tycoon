@@ -30,3 +30,5 @@ than the company I worked for (in terms of user interface).
 - As a user, I want to be able to see a list of my high scores
 - As a user, I want to purchase goods for my store and manage inventory
 - As a user, I want to see my score and store balance
+- As a user, I want to have the option to save my in-game progress when I close the application
+- As a user, I want to have the option to load a new game or load from the previous save

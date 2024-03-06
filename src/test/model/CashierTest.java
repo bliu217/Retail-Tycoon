@@ -18,13 +18,24 @@ class CashierTest {
 
     @BeforeEach
     void runBefore() {
-        cashier = new Cashier();
+        cashier = new Cashier(0, 100);
         equal = new Item("Equal", 10, 10);
         item = new Item("Item", 1, 1);
         ice = new Item("Ice", 5, 4);
         empty = new ArrayList<>();
         assertEquals(cashier.getBalance(), 100);
         assertTrue(cashier.getInventory().isEmpty());
+        assertEquals(cashier.initItems().size(), 6);
+    }
+
+    @Test
+    void testAddInventory() {
+
+        cashier.addInventory(item);
+        assertEquals(cashier.getInventory().size(), 1);
+        cashier.addInventory(item);
+        cashier.addInventory(item);
+        assertEquals(cashier.getInventory().size(), 3);
     }
 
     @Test
