@@ -14,7 +14,9 @@ class CashierTest {
     Item equal;
     Item item;
     Item ice;
+    Item banana;
     List<Item> empty;
+    List<Item> itemList;
 
     @BeforeEach
     void runBefore() {
@@ -22,7 +24,9 @@ class CashierTest {
         equal = new Item("Equal", 10, 10);
         item = new Item("Item", 1, 1);
         ice = new Item("Ice", 5, 4);
+        banana = new Item("Banana", 3, 1);
         empty = new ArrayList<>();
+        itemList = cashier.initItems();
         assertEquals(cashier.getBalance(), 100);
         assertTrue(cashier.getInventory().isEmpty());
         assertEquals(cashier.initItems().size(), 6);
@@ -184,5 +188,13 @@ class CashierTest {
         assertEquals(cashier.getInventory(), empty);
         assertEquals(cashier.getBalance(), 87);
         assertEquals(cashier.getScore(), 15);
+    }
+
+    @Test
+    void testStringToTime() {
+        assertNotNull(cashier.stringToItem("Banana"));
+        assertNotNull(cashier.stringToItem("Notebook"));
+        assertNotNull(cashier.stringToItem("Goodwater"));
+        assertNull(cashier.stringToItem("ice"));
     }
 }
