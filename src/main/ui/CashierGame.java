@@ -76,6 +76,7 @@ public class CashierGame {
         }
     }
 
+    // EFFECTS: loads previous save written to ./data/cashier.json
     private void loadGame() {
         try {
             cashier = reader.read();
@@ -84,6 +85,8 @@ public class CashierGame {
         }
     }
 
+    // EFFECTS: saves progress of user to file ./data/cashier.json. If file is renamed or removed,
+    // throw FileNotFoundException.
     private void saveGame() {
         try {
             writer.open();
@@ -139,6 +142,7 @@ public class CashierGame {
 
     }
 
+    // EFFECTS: initializes the game based on new or previous save
     private void init() {
         if (freshGame) {
             newGameMessage();
@@ -173,6 +177,7 @@ public class CashierGame {
         runCashierGame();
     }
 
+    // EFFECTS: on screen printouts to prompt user input for desired action
     private void menuDisplay() {
         System.out.println("Current Balance: $" + cashier.getBalance());
         System.out.println("Current Score: " + cashier.getScore() + " pts\n");
@@ -209,6 +214,7 @@ public class CashierGame {
 
 
 
+    // MODIFIES: this, customer
     // EFFECTS: performs the checkout of the customer items, adds profits to balance appropriately or fails the game
     private void checkout() {
         List<Item> items = customer.getItems();
@@ -254,6 +260,7 @@ public class CashierGame {
 
     }
 
+    // MODIFIES: this
     // EFFECTS: handles the user input while buying inventory. Also adds inventory and does balance calculations
     private void processStore() {
         System.out.println("Type the number of the item you would like to stock: (type 0 to exit)");
@@ -272,13 +279,33 @@ public class CashierGame {
             Item currentItem = itemList.get(index);
             System.out.println("Type the quantity of item: ");
             Integer quantity = input.nextInt();
+            purchaseQuantity(quantity, currentItem);
 
-            if (cashier.purchaseInventory(currentItem, quantity)) {
-                System.out.println("Success! x" + quantity + " " + currentItem.getName() + " added to inventory.");
-            } else {
-                System.out.println("Insufficient funds!");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: purchases a quantity items. If given a quantity <= 0,
+    // keep prompting user for valid quantity of items.
+
+    private void purchaseQuantity(int quantity, Item currentItem) {
+        Boolean invalid;
+
+        if (quantity <= 0) {
+            invalid = true;
+            while (invalid) {
+                System.out.println("Invalid quantity. Try again:");
+                quantity = input.nextInt();
+                if (quantity > 0) {
+                    invalid = false;
+                }
             }
+        }
 
+        if (cashier.purchaseInventory(currentItem, quantity)) {
+            System.out.println("Success! x" + quantity + " " + currentItem.getName() + " added to inventory.");
+        } else {
+            System.out.println("Insufficient funds!");
         }
     }
 
