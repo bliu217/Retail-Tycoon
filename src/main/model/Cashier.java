@@ -168,6 +168,7 @@ public class Cashier implements Writable {
         return jsonObject;
     }
 
+    // EFFECTS: returns the cashier's inventory as a JSON array.
     private JSONArray inventoryToJson() {
         JSONArray jsonArray = new JSONArray();
 

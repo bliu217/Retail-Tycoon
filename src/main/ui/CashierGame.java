@@ -46,6 +46,12 @@ public class CashierGame {
         highscores = new ArrayList<>();
         writer = new JsonWriter(JSON_SOURCE);
         reader = new JsonReader(JSON_SOURCE);
+        try {
+            Cashier temp = reader.read();
+            addHighscore(temp);
+        } catch (Exception e) {
+            runCashierGame();
+        }
         runCashierGame();
     }
 
@@ -80,8 +86,9 @@ public class CashierGame {
     private void loadGame() {
         try {
             cashier = reader.read();
-        } catch (IOException e) {
-            System.out.println("Unable to load progress: file error");
+        } catch (Exception e) {
+            System.out.println("No previous save found.");
+            runCashierGame();
         }
     }
 

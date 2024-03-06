@@ -8,7 +8,6 @@ public class Customer {
     private String name;
     private List<Item> items;
     private Integer balance;
-    //NOTE TO SELF: remember to implement function with customer balance.
 
 
     // EFFECTS: constructs a customer with given name and balance with empty list of items
