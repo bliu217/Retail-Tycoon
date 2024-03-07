@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,10 +18,12 @@ class JsonWriterTest extends JsonTest{
     JsonWriter writer;
     JsonReader reader;
     Highscores highscores;
+    List<Cashier> temp;
 
     @BeforeEach
     void runBefore() {
         highscores = new Highscores();
+        temp = new ArrayList<>();
     }
 
     @Test
@@ -48,11 +51,14 @@ class JsonWriterTest extends JsonTest{
             writer.write(cashier, highscores);
             writer.close();
 
+            highscores = reader.getHighscores();
+            temp = highscores.getScores();
             cashier = reader.read();
             assertEquals(cashier.getSaveName(), "name");
             assertEquals(cashier.getScore(), 0);
             assertEquals(cashier.getBalance(), 100);
             assertEquals(cashier.getInventory().size(), 0);
+            assertEquals(temp.size(), 0);
         } catch (FileNotFoundException e) {
             fail("File exists, not expecting exception");
         } catch (IOException e) {
@@ -71,6 +77,8 @@ class JsonWriterTest extends JsonTest{
         cashier.addInventory(banana);
         cashier.addInventory(notebook);
         cashier.addInventory(microwave);
+        temp.add(cashier);
+        highscores.setScores(temp);
         writer = new JsonWriter("./data/testReaderGeneralCashier.json");
         reader = new JsonReader("./data/testReaderGeneralCashier.json");
 
@@ -80,10 +88,13 @@ class JsonWriterTest extends JsonTest{
             writer.close();
 
             cashier = reader.read();
+            highscores = reader.getHighscores();
+            temp = highscores.getScores();
             assertEquals(cashier.getSaveName(), "name");
             assertEquals(cashier.getScore(), 50);
             assertEquals(cashier.getBalance(), 888);
             assertEquals(cashier.getInventory().size(), 4);
+            assertEquals(temp.size(), 1);
 
             List<Item> inventory = cashier.getInventory();
 

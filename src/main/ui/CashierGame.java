@@ -6,8 +6,6 @@ import model.Customer;
 import model.Highscores;
 import model.Item;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 

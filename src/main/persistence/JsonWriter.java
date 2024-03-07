@@ -31,7 +31,7 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of Cashier to file
+    // EFFECTS: writes JSON representation of Cashier and highscores to file
     public void write(Cashier c, Highscores h) {
         JSONObject json = new JSONObject();
         JSONObject cashier = c.toJson();

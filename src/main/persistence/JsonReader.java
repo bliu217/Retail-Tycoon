@@ -15,7 +15,7 @@ import org.json.*;
 
 // Represents a reader that reads cashier statuses from JSON data stored in file
 public class JsonReader {
-    private String source;
+    private final String source;
 
 
     // EFFECTS: constructs a reader that reads file from a source
@@ -32,6 +32,8 @@ public class JsonReader {
         return parseCashier(json);
     }
 
+    // EFFECTS: reads highscores from file and returns it;
+    // throws IOException if an error occurs reading data from file
     public Highscores getHighscores() throws IOException {
         String jsonData = readFile(source);
         JSONObject json = new JSONObject(jsonData);
@@ -51,6 +53,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
+    // EFFECTS: parses highscores from JSON object and returns it
     private Highscores parseScores(JSONObject json) {
         JSONArray jsonArray = json.getJSONArray("Highscores");
         Highscores h = new Highscores();
