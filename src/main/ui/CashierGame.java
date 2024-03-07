@@ -3,8 +3,11 @@ package ui;
 
 import model.Cashier;
 import model.Customer;
+import model.Highscores;
 import model.Item;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -24,9 +27,10 @@ import java.util.Random;
 public class CashierGame {
 
     private static final String JSON_SOURCE = "./data/cashier.json";
+    private static final int MAX_SCORES = 10;
 
     private Cashier cashier;
-    private final List<Cashier> highscores;
+    private List<Cashier> highscores;
     private List<String> customerNames;
     private List<Item> itemList;
     private boolean runGame;
@@ -37,22 +41,31 @@ public class CashierGame {
     private int strikeNumber;
     private JsonWriter writer;
     private JsonReader reader;
+    private Highscores scores;
+
 
 
     public static final Integer START_BALANCE = 100; //start game with this balance
 
-    // EFFECTS: constructs a new game with a new highscore list
+    // EFFECTS: constructs a new game and imports highscores
     public CashierGame() {
-        highscores = new ArrayList<>();
         writer = new JsonWriter(JSON_SOURCE);
         reader = new JsonReader(JSON_SOURCE);
-        try {
-            Cashier temp = reader.read();
-            addHighscore(temp);
-        } catch (Exception e) {
-            runCashierGame();
-        }
+        initScores();
         runCashierGame();
+    }
+
+    // EFFECTS: imports highscores from file
+    private void initScores() {
+        highscores = new ArrayList<>();
+        scores = new Highscores();
+        try {
+            scores = reader.getHighscores();
+            highscores = scores.getScores();
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+
     }
 
     // EFFECTS: Start menu of the game
@@ -95,9 +108,10 @@ public class CashierGame {
     // EFFECTS: saves progress of user to file ./data/cashier.json. If file is renamed or removed,
     // throw FileNotFoundException.
     private void saveGame() {
+        scores.setScores(highscores);
         try {
             writer.open();
-            writer.write(cashier);
+            writer.write(cashier, scores);
             writer.close();
             System.out.println("Progress saved");
         } catch (FileNotFoundException e) {
@@ -140,13 +154,12 @@ public class CashierGame {
         if (cycle == 0) {
             int index = random.nextInt(cashier.getInventory().size());
             customer.addItem(cashier.getInventory().get(index));
+        } else {
+            for (int i = 0; i < cycle; i++) {
+                int index = random.nextInt(cashier.getInventory().size());
+                customer.addItem(cashier.getInventory().get(index));
+            }
         }
-
-        for (int i = 0; i < cycle; i++) {
-            int index = random.nextInt(cashier.getInventory().size());
-            customer.addItem(cashier.getInventory().get(index));
-        }
-
     }
 
     // EFFECTS: initializes the game based on new or previous save
@@ -161,11 +174,12 @@ public class CashierGame {
 
     // EFFECTS: runs the loop of the game. breaks out if cashier balance <=0 or 3 strikes while performing checkouts.
     private void playGame() {
-        strikeNumber = 0;
+
         createCustomers();
         initItems();
         init();
         while (runGame) {
+            strikeNumber = 0;
             generateCustomer();
             System.out.println(customer.getName() + ": Scan these items please");
             checkout();
@@ -181,6 +195,8 @@ public class CashierGame {
         }
         System.out.println("Game Over!");
         addHighscore(cashier);
+        cashier = new Cashier(0,START_BALANCE);
+        saveGame();
         runCashierGame();
     }
 
@@ -285,7 +301,7 @@ public class CashierGame {
             int index = option - 1;
             Item currentItem = itemList.get(index);
             System.out.println("Type the quantity of item: ");
-            Integer quantity = input.nextInt();
+            int quantity = input.nextInt();
             purchaseQuantity(quantity, currentItem);
 
         }
@@ -296,7 +312,7 @@ public class CashierGame {
     // keep prompting user for valid quantity of items.
 
     private void purchaseQuantity(int quantity, Item currentItem) {
-        Boolean invalid;
+        boolean invalid;
 
         if (quantity <= 0) {
             invalid = true;
@@ -335,7 +351,9 @@ public class CashierGame {
     private void viewScores() {
         System.out.println("---------High Scores---------\n");
         printHighscores();
+        System.out.println("-----------------------------\n");
         System.out.println("return to menu [M]");
+
 
         String nextCommand = input.next();
         nextCommand = nextCommand.toLowerCase();
@@ -356,7 +374,8 @@ public class CashierGame {
         System.out.println("Exit Game [press 0]");
     }
 
-    // EFFECTS: adds highscore and ranks it among current scores
+    // EFFECTS: adds highscore and ranks it among current scores. highscore.size()<MAX_SCORES, otherwise
+    // remove the lowest score.
     private void addHighscore(Cashier cashier) {
         Integer score = cashier.getScore();
 
@@ -370,11 +389,16 @@ public class CashierGame {
                 if (score > oldScore) {
                     highscores.add(i, cashier);
                     break;
-                } else if (i == highscores.size()) {
+                } else if (i == (highscores.size() - 1)) {
                     highscores.add(cashier);
+                    break;
                 }
             }
 
+        }
+
+        if (highscores.size() > MAX_SCORES) {
+            highscores.remove(MAX_SCORES);
         }
     }
 
@@ -396,7 +420,7 @@ public class CashierGame {
 
     // EFFECTS: prints out the inventory and the frequency of each item without duplicates or prints warning if empty
     private void viewInventory() {
-
+        System.out.println("----------Inventory----------");
         List<Item> alreadyListed = new ArrayList<>();
 
         if (cashier.getInventory().isEmpty()) {
@@ -410,5 +434,6 @@ public class CashierGame {
                 alreadyListed.add(i);
             }
         }
+        System.out.println("-----------------------------\n");
     }
 }

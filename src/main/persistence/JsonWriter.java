@@ -1,6 +1,8 @@
 package persistence;
 
 import model.Cashier;
+import model.Highscores;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.*;
 
@@ -24,16 +26,22 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes string to file
-    private void saveToFile(String json) {
+    public void saveToFile(String json) {
         writer.print(json);
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
-    public void write(Cashier c) {
-        JSONObject json = c.toJson();
+    // EFFECTS: writes JSON representation of Cashier to file
+    public void write(Cashier c, Highscores h) {
+        JSONObject json = new JSONObject();
+        JSONObject cashier = c.toJson();
+        JSONArray highscores = h.scoresToJson();
+        json.put("Cashier", cashier);
+        json.put("Highscores", highscores);
         saveToFile(json.toString(TAB));
     }
+
+
 
     // MODIFIES: this
     // EFFECTS: closes writer

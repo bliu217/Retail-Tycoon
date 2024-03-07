@@ -3,6 +3,7 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
+import ui.CashierGame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class Cashier implements Writable {
     public void addScore(int amount) {
         this.score += amount;
     }
+
 
     // MODIFIES: this
     // EFFECTS: sets the saveName of the cashier

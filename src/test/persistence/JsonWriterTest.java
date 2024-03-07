@@ -1,7 +1,9 @@
 package persistence;
 
 import model.Cashier;
+import model.Highscores;
 import model.Item;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -14,6 +16,12 @@ class JsonWriterTest extends JsonTest{
     Cashier cashier;
     JsonWriter writer;
     JsonReader reader;
+    Highscores highscores;
+
+    @BeforeEach
+    void runBefore() {
+        highscores = new Highscores();
+    }
 
     @Test
     void testInvalidFile() {
@@ -37,7 +45,7 @@ class JsonWriterTest extends JsonTest{
 
         try {
             writer.open();
-            writer.write(cashier);
+            writer.write(cashier, highscores);
             writer.close();
 
             cashier = reader.read();
@@ -68,7 +76,7 @@ class JsonWriterTest extends JsonTest{
 
         try {
             writer.open();
-            writer.write(cashier);
+            writer.write(cashier, highscores);
             writer.close();
 
             cashier = reader.read();

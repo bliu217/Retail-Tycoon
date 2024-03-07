@@ -1,11 +1,14 @@
 {
-    "score": 50,
-    "balance": 888,
-    "saveName": "name",
-    "inventory": [
-        {"name": "Banana"},
-        {"name": "Banana"},
-        {"name": "Notebook"},
-        {"name": "Microwave"}
-    ]
+    "Highscores": {"highscores": []},
+    "Cashier": {
+        "score": 50,
+        "balance": 888,
+        "saveName": "name",
+        "inventory": [
+            {"name": "Banana"},
+            {"name": "Banana"},
+            {"name": "Notebook"},
+            {"name": "Microwave"}
+        ]
+    }
 }

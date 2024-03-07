@@ -1,6 +1,9 @@
 {
-    "score": 0,
-    "balance": 100,
-    "saveName": "name",
-    "inventory": []
+    "Highscores": {"highscores": []},
+    "Cashier": {
+        "score": 0,
+        "balance": 100,
+        "saveName": "name",
+        "inventory": []
+    }
 }

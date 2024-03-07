@@ -1,10 +1,105 @@
 {
-  "score": 20,
-  "balance": 107,
-  "saveName": "Jacob",
-  "inventory": [
-    {"name": "Goodwater"},
-    {"name": "Goodwater"},
-    {"name": "Goodwater"}
-  ]
+    "Highscores": [
+        {
+            "score": 758,
+            "balance": 87,
+            "saveName": "gangtang",
+            "inventory": [
+                {"name": "Notebook"},
+                {"name": "Microwave"}
+            ]
+        },
+        {
+            "score": 403,
+            "balance": 60,
+            "saveName": "mig",
+            "inventory": [
+                {"name": "Banana"},
+                {"name": "Banana"}
+            ]
+        },
+        {
+            "score": 360,
+            "balance": 116,
+            "saveName": "u",
+            "inventory": [{"name": "DogFood"}]
+        },
+        {
+            "score": 240,
+            "balance": -36,
+            "saveName": "jk",
+            "inventory": [
+                {"name": "DogFood"},
+                {"name": "Notebook"},
+                {"name": "Notebook"},
+                {"name": "Banana"},
+                {"name": "Banana"},
+                {"name": "Banana"},
+                {"name": "Banana"}
+            ]
+        },
+        {
+            "score": 156,
+            "balance": 68,
+            "saveName": "Bern",
+            "inventory": [
+                {"name": "Detergent"},
+                {"name": "Banana"},
+                {"name": "Banana"},
+                {"name": "Banana"},
+                {"name": "Goodwater"}
+            ]
+        },
+        {
+            "score": 120,
+            "balance": 47,
+            "saveName": "grrgrgrgrg",
+            "inventory": [
+                {"name": "Goodwater"},
+                {"name": "Goodwater"},
+                {"name": "Goodwater"}
+            ]
+        },
+        {
+            "score": 64,
+            "balance": 69,
+            "saveName": "JesusHimself",
+            "inventory": [
+                {"name": "Banana"},
+                {"name": "Banana"},
+                {"name": "Detergent"}
+            ]
+        },
+        {
+            "score": 24,
+            "balance": 42,
+            "saveName": "FigmaBalls",
+            "inventory": [
+                {"name": "Notebook"},
+                {"name": "Goodwater"},
+                {"name": "Goodwater"}
+            ]
+        },
+        {
+            "score": 20,
+            "balance": 10,
+            "saveName": "s1mple",
+            "inventory": [
+                {"name": "Detergent"},
+                {"name": "Detergent"},
+                {"name": "Microwave"}
+            ]
+        },
+        {
+            "score": 16,
+            "balance": 38,
+            "saveName": "sad",
+            "inventory": [{"name": "Notebook"}]
+        }
+    ],
+    "Cashier": {
+        "score": 0,
+        "balance": 100,
+        "inventory": []
+    }
 }

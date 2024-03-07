@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
+import model.Highscores;
 import org.json.*;
 
 // Represents a reader that reads cashier statuses from JSON data stored in file
@@ -20,13 +23,21 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
+    // EFFECTS: reads Cashier from file and returns it;
     // throws IOException if an error occurs reading data from file
     public Cashier read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseCashier(jsonObject); //stub
+        JSONObject json = jsonObject.getJSONObject("Cashier");
+        return parseCashier(json);
     }
+
+    public Highscores getHighscores() throws IOException {
+        String jsonData = readFile(source);
+        JSONObject json = new JSONObject(jsonData);
+        return parseScores(json);
+    }
+
 
     // EFFECTS: reads source file as string and returns it
     // CODE FROM JSON EXAMPLE
@@ -40,8 +51,22 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
+    private Highscores parseScores(JSONObject json) {
+        JSONArray jsonArray = json.getJSONArray("Highscores");
+        Highscores h = new Highscores();
+        List<Cashier> temp = new ArrayList<>();
+
+        for (Object object : jsonArray) {
+            JSONObject nextCashier = (JSONObject) object;
+            temp.add(parseCashier(nextCashier));
+        }
+        h.setScores(temp);
+        return h;
+    }
+
     // EFFECTS: parses Cashier from JSON object and returns it
     private Cashier parseCashier(JSONObject jsonObject) {
+
         int score = jsonObject.getInt("score");
         int balance = jsonObject.getInt("balance");
         String name = jsonObject.getString("saveName");
@@ -63,7 +88,6 @@ public class JsonReader {
             c.addInventory(c.stringToItem(name));
         }
     }
-
 
 
 }
