@@ -61,6 +61,15 @@
             ]
         },
         {
+            "score": 120,
+            "balance": 22,
+            "saveName": "JJ",
+            "inventory": [
+                {"name": "DogFood"},
+                {"name": "DogFood"}
+            ]
+        },
+        {
             "score": 64,
             "balance": 69,
             "saveName": "JesusHimself",
@@ -89,12 +98,6 @@
                 {"name": "Detergent"},
                 {"name": "Microwave"}
             ]
-        },
-        {
-            "score": 16,
-            "balance": 38,
-            "saveName": "sad",
-            "inventory": [{"name": "Notebook"}]
         }
     ],
     "Cashier": {
