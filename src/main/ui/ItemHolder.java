@@ -12,6 +12,7 @@ public class ItemHolder extends JPanel {
     private Item item;
     boolean store;
     private int quantity;
+    protected int amount;
     protected JPanel subtractPanel;
     protected JPanel addPanel;
 
@@ -22,6 +23,7 @@ public class ItemHolder extends JPanel {
         this.setBackground(Color.white);
         this.quantity = 0;
         this.item = i;
+        this.amount = 0;
         initHolder();
         actions();
 
@@ -58,9 +60,6 @@ public class ItemHolder extends JPanel {
         qty.setHorizontalAlignment(SwingConstants.CENTER);
         qty.setVerticalAlignment(SwingConstants.CENTER);
         panel.add(qty);
-        if (!store) {
-            panel.setVisible(false);
-        }
         this.add(panel);
     }
 
@@ -93,8 +92,13 @@ public class ItemHolder extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (quantity > 0) {
                     subQuantity();
-                    refresh();
                 }
+
+                if (store) {
+                    CashierGame.processStore();
+                }
+
+                refresh();
             }
         });
 
@@ -102,6 +106,9 @@ public class ItemHolder extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 addQuantity();
+                if (store) {
+                    CashierGame.processStore();
+                }
                 refresh();
             }
         });
@@ -117,22 +124,39 @@ public class ItemHolder extends JPanel {
         label.setFont(CashierGame.SOMETYPEMONO_BOLD.deriveFont(24f));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label, BorderLayout.CENTER);
+        if (!store) {
+            this.add(Box.createHorizontalStrut(127));
+            panel.setVisible(false);
+        }
 
         this.add(panel);
 
     }
 
+    public int getTotal() {
+        return amount;
+    }
 
+    public void refreshQuantity() {
+        this.quantity = 0;
+        refresh();
+    }
 
     public void subQuantity() {
+        this.amount -= item.getBuyPrice();
         this.quantity--;
     }
 
     public void addQuantity() {
+        this.amount += item.getBuyPrice();
         this.quantity++;
     }
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public Item getItem() {
+        return item;
     }
 }

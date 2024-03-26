@@ -8,7 +8,7 @@ import java.awt.*;
 public class WindowTemplate extends JPanel {
 
     protected static JPanel backButton;
-    protected Cashier cashier;
+    protected static Cashier cashier;
 
     public WindowTemplate(Color c, String s, Cashier cashier) {
         this.cashier = cashier;
@@ -17,8 +17,6 @@ public class WindowTemplate extends JPanel {
         setBackground(new Color(0x00D1FF));
         backButton();
         header(c, s);
-        HighscoreDisplay.initFooter();
-//        this.add(HighscoreDisplay.footer);
         initPanel();
 
     }

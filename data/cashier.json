@@ -101,8 +101,17 @@
         }
     ],
     "Cashier": {
-        "score": 0,
-        "balance": 100,
-        "inventory": []
+        "score": 28,
+        "balance": 75,
+        "saveName": "Jaeyoung",
+        "inventory": [
+            {"name": "Banana"},
+            {"name": "Banana"},
+            {"name": "Notebook"},
+            {"name": "Notebook"},
+            {"name": "DogFood"},
+            {"name": "Detergent"},
+            {"name": "Goodwater"}
+        ]
     }
 }
