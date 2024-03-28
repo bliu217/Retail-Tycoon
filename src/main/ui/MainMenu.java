@@ -8,10 +8,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+// the main display components on top on the main game display
 public class MainMenu extends MainGameDisplay {
     private final Cashier cashier;
     protected static boolean nextDay;
@@ -21,10 +21,11 @@ public class MainMenu extends MainGameDisplay {
     protected static JPanel inventoryButton;
     protected static JPanel nextDayButton;
     protected static JPanel menuSave;
-    protected static JPanel menuQuit;
+    protected static JPanel menuMenu;
     protected static JPanel holder;
     protected static JPanel summary;
 
+    // EFFECTS: creates new main menu that displays the save, quit, next day, inventory, store buttons
     public MainMenu(Cashier cashier, boolean b) {
         super();
         saveAndQuitButtons();
@@ -45,8 +46,7 @@ public class MainMenu extends MainGameDisplay {
         }
     }
 
-
-
+    // EFFECTS: adds appropriate text to textBox
     private void messages() {
         if (cashier.getInventory().size() == 0) {
             lowInventoryMessage.setVisible(true);
@@ -76,6 +76,7 @@ public class MainMenu extends MainGameDisplay {
         }
     }
 
+    // EFFECTS: initializes the off mouse adapter that switches off nextDay
     private void off() {
         off = new MouseAdapter() {
             @Override
@@ -85,6 +86,8 @@ public class MainMenu extends MainGameDisplay {
         };
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the store button
     private void storeButton() {
         storeButton = new JPanel();
         storeButton.setBounds(0, 831, 366, 81);
@@ -100,6 +103,8 @@ public class MainMenu extends MainGameDisplay {
         this.add(storeButton, 0);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the inventory button
     private void inventoryButton() {
         inventoryButton = new JPanel();
         inventoryButton.setBounds(366,831,365,81);
@@ -116,6 +121,8 @@ public class MainMenu extends MainGameDisplay {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the low inventory error
     private void initLowInventoryError() {
         lowInventoryMessage = new JPanel();
         lowInventoryMessage.setOpaque(false);
@@ -128,6 +135,8 @@ public class MainMenu extends MainGameDisplay {
         this.add(lowInventoryMessage, 0);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the next day button
     private void initNextDay() {
         nextDayButton = new JPanel();
         nextDayButton.setBounds(0, 912, 731, 81);
@@ -142,12 +151,15 @@ public class MainMenu extends MainGameDisplay {
         this.add(nextDayButton, 0);
     }
 
+    // EFFECTS: creates save and quit buttons
     private void saveAndQuitButtons() {
         menuSave = makeButton(new Color(0x6AF553), "SAVE");
-        menuQuit = makeButton(new Color(0xF55353), "QUIT");
+        menuMenu = makeButton(new Color(0xF55353), "MENU");
         holder();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates holder for save and quit buttons
     private void holder() {
         holder = new JPanel() {
             @Override
@@ -167,14 +179,15 @@ public class MainMenu extends MainGameDisplay {
         };
         holder.setOpaque(false);
         holder.setBounds(1654, 17, 248, 78);
-        holder.setBackground(new Color(0x143F6B));
+        holder.setBackground(new Color(20,63,107,75));
         holder.setBorder(new EmptyBorder(14, 13, 14, 13));
         holder.setLayout(new BorderLayout());
         holder.add(menuSave, BorderLayout.LINE_START);
-        holder.add(menuQuit, BorderLayout.LINE_END);
+        holder.add(menuMenu, BorderLayout.LINE_END);
         this.add(holder, 0);
     }
 
+    // EFFECTS: creates a JPanel with given color and text
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private JPanel makeButton(Color color, String text) {
         JPanel panel = new JPanel() {
@@ -207,6 +220,8 @@ public class MainMenu extends MainGameDisplay {
         return panel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the panel to hold summary of previous transaction
     private void summaryPanel() {
         summary = new JPanel();
         summary.setBounds(210, 287,312, 120);
@@ -229,6 +244,8 @@ public class MainMenu extends MainGameDisplay {
         initImage();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates checkmark image
     private void initImage() {
         BufferedImage image;
         try {
@@ -244,18 +261,21 @@ public class MainMenu extends MainGameDisplay {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the MANAGER cashierName header for side panel
     private void showLog() {
         JPanel logText = new JPanel();
         logText.setLayout(new GridLayout(2, 1));
         logText.setBounds(181, 249, 370, 116);
         logText.setOpaque(false);
-        JLabel one = makeLabel("MANAGER:");
+        JLabel one = makeLabel("MANAGER");
         JLabel two = makeLabel(cashier.getSaveName());
         logText.add(one);
         logText.add(two);
         this.add(logText, 0);
     }
 
+    // EFFECTS: helper to make JLabel with given text
     private JLabel makeLabel(String text) {
         JLabel label1 = new JLabel(text);
         label1.setFont(CashierGame.COUTURE.deriveFont(48f));
@@ -264,6 +284,8 @@ public class MainMenu extends MainGameDisplay {
         return label1;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the summary components to the summary panel
     private void addContent() {
         JPanel log = new JPanel();
         log.setOpaque(false);
@@ -279,6 +301,7 @@ public class MainMenu extends MainGameDisplay {
 
     }
 
+    // EFFECTS: returns a round JPanel with given string
     private JPanel createRoundPanel(String text) {
         JPanel panel = new JPanel() {
             @Override

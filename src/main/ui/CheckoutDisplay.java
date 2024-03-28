@@ -7,11 +7,11 @@ import model.Item;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+// creates a scene for the checkout
 public class CheckoutDisplay extends MainGameDisplay {
 
     private static Customer customer;
@@ -21,7 +21,9 @@ public class CheckoutDisplay extends MainGameDisplay {
     protected static JLabel fail;
     protected static JPanel checkoutInventory;
     protected static List<ItemHolder> checkoutHolders;
+    protected static JPanel circle;
 
+    // EFFECTS: creates a new scene for checkout
     public CheckoutDisplay(Customer customer, Cashier cashier) {
         super();
         this.customer = customer;
@@ -36,6 +38,8 @@ public class CheckoutDisplay extends MainGameDisplay {
         initInventory();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates customer cart panel
     private void customerItemList() {
         customerCart = new JPanel();
         customerCart.setBounds(791, 0, 500, 650);
@@ -52,6 +56,7 @@ public class CheckoutDisplay extends MainGameDisplay {
         this.add(customerCart);
     }
 
+    // EFFECTS: formats customer cart
     private void sections(String name, String qty) {
         JPanel panel = new JPanel();
         panel.setMaximumSize(new Dimension(441, 36));
@@ -69,6 +74,7 @@ public class CheckoutDisplay extends MainGameDisplay {
         customerCart.add(panel);
     }
 
+    // EFFECTS: adds item to customer cart
     private void items() {
 
         List<Item> alreadyListed = new ArrayList<>();
@@ -82,8 +88,10 @@ public class CheckoutDisplay extends MainGameDisplay {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates character image
     private void customerCharacter() {
-        JPanel circle = new JPanel() {
+        circle = new JPanel() {
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -92,18 +100,21 @@ public class CheckoutDisplay extends MainGameDisplay {
                 int centerY = getHeight() / 2;
                 int radius = 80;
 
-                g.setColor(Color.white);
+                g.setColor(getBackground());
 
                 g.fillOval(centerX - radius, centerY - radius, 160, 160);
             }
         };
 
         circle.setOpaque(false);
+        circle.setBackground(Color.white);
         circle.setBounds(1523, 324, 160, 160);
         this.add(circle, 0);
         customerBody();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates customer body
     private void customerBody() {
         JPanel panel = new JPanel() {
             @Override
@@ -129,6 +140,8 @@ public class CheckoutDisplay extends MainGameDisplay {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates panel to hold cashier inventory and side panel buttons
     private void initCheckout() {
         checkout = new JPanel();
         checkout.setBounds(0, 912, 731, 81);
@@ -142,7 +155,8 @@ public class CheckoutDisplay extends MainGameDisplay {
         checkout.add(label);
         this.add(checkout, 0);
     }
-    
+
+    // EFFECTS: sets fail message
     private void fail(int strike) {
         fail = new JLabel("FAIL " + strike + "/3");
         fail.setBounds(291, 1014, 149, 40);
@@ -150,17 +164,19 @@ public class CheckoutDisplay extends MainGameDisplay {
         fail.setForeground(Color.white);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets customer item holders
     private void itemHolders() {
         checkoutInventory = new JPanel();
         checkoutInventory.setOpaque(false);
         checkoutInventory.setBounds(72, 163, 587, 680);
-//        checkoutInventory.setBackground(Color.white);
         GridLayout layout = new GridLayout(9, 1);
         layout.setVgap(29);
         checkoutInventory.setLayout(layout);
         this.add(checkoutInventory, 0);
     }
 
+    // EFFECTS: adds customer inventory to screen
     private void initInventory() {
 
         List<Item> alreadyListed = new ArrayList<>();
@@ -178,6 +194,7 @@ public class CheckoutDisplay extends MainGameDisplay {
         }
     }
 
+    // EFFECTS: checks if the quantity of item holders == quantity of customer itmes
     public static boolean matchCustomer() {
         for (ItemHolder holder : checkoutHolders) {
             Item temp = holder.getItem();

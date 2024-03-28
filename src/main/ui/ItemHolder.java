@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+// an item holder to display item with item name and (optional) price
 public class ItemHolder extends JPanel {
 
     private Item item;
@@ -16,6 +17,8 @@ public class ItemHolder extends JPanel {
     protected JPanel subtractPanel;
     protected JPanel addPanel;
 
+    // MODIFIES: this
+    // EFFECTS: creates item holder for given item
     public ItemHolder(Item i, boolean store) {
         this.store = store;
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -30,6 +33,8 @@ public class ItemHolder extends JPanel {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes the main holder
     private void initHolder() {
         String name = item.getName();
 
@@ -49,6 +54,8 @@ public class ItemHolder extends JPanel {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the panel that displays quantity of item
     private void qtyPanel() {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(82, 48));
@@ -63,6 +70,8 @@ public class ItemHolder extends JPanel {
         this.add(panel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a small panel with given color and text
     private JPanel genPanel(Color c, String s) {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(64, 48));
@@ -79,6 +88,8 @@ public class ItemHolder extends JPanel {
         return panel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: used to refresh the quantity panel when it is updated
     private void refresh() {
         this.removeAll();
         initHolder();
@@ -86,6 +97,8 @@ public class ItemHolder extends JPanel {
         actions();
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds mouse listener to the add and subtract buttons
     private void actions() {
         this.subtractPanel.addMouseListener(new MouseAdapter() {
             @Override
@@ -114,6 +127,8 @@ public class ItemHolder extends JPanel {
         });
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the panel to display item cost
     private void costPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -133,29 +148,42 @@ public class ItemHolder extends JPanel {
 
     }
 
+    // EFFECTS: returns total cost of items to be purchased
     public int getTotal() {
         return amount;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the quantity of holder to 0
     public void refreshQuantity() {
         this.quantity = 0;
         refresh();
     }
 
+    // MODIFIES: this
+    // EFFECTS: subtracts 1 from quantity
     public void subQuantity() {
         this.amount -= item.getBuyPrice();
         this.quantity--;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds 1 to quantity
     public void addQuantity() {
         this.amount += item.getBuyPrice();
         this.quantity++;
     }
 
+    public void resetAmount() {
+        this.amount = 0;
+    }
+
+    // EFFECTS: returns total quantity of item
     public int getQuantity() {
         return quantity;
     }
 
+    // EFFECTS: returns item of holder
     public Item getItem() {
         return item;
     }

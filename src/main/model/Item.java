@@ -44,6 +44,7 @@ public class Item implements Writable {
         }
     }
 
+    // EFFECTS: Item.equals(Item) if name is the same
     @Override
     public boolean equals(Object o) {
         if (this == o) {

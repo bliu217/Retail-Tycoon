@@ -55,4 +55,11 @@ class ItemTest {
         assertEquals(hunnit.scoreCalculation(), 1000);
         assertEquals(overHunnit.scoreCalculation(), 8880);
     }
+
+    @Test
+    void testEquals() {
+        assertEquals(hunnit, hunnit);
+        assertEquals(hunnit, overHunnit);
+        assertNotEquals(hunnit, another);
+    }
 }

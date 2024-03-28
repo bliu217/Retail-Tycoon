@@ -7,15 +7,22 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+// creates a screen to display cashier's inventory
 public class InventoryDisplay extends WindowTemplate {
     protected static JPanel inventoryBox;
 
+    // EFFECTS: an inventory display for given cashier
     public InventoryDisplay(Cashier cashier) {
         super(new Color(0xAE53F5), "INVENTORY", cashier);
         initInventoryBox();
         this.add(inventoryBox, 0);
+        if (cashier.getInventory().size() == 0) {
+            emptyMessage();
+        }
     }
 
+    // MODIFIES: inventoryBox
+    // EFFECTS: creates holder for the inventory panels
     private void initInventoryBox() {
         inventoryBox = new JPanel();
         inventoryBox.setBounds(320,316, 1280, 492);
@@ -26,6 +33,8 @@ public class InventoryDisplay extends WindowTemplate {
         inventoryBox.setLayout(layout);
     }
 
+    // MODIFIES: inventoryBox
+    // EFFECTS: adds item to the holder
     public static void addItem(Item i) {
         JPanel panel = itemPanel();
         int quantity = cashier.itemFrequency(i);
@@ -39,6 +48,8 @@ public class InventoryDisplay extends WindowTemplate {
 
     }
 
+
+    // EFFECTS: helper method to create label with text
     private static JLabel itemText(String text) {
         JLabel label = new JLabel(text);
         label.setFont(CashierGame.SOMETYPEMONO_BOLD.deriveFont(36f));
@@ -47,6 +58,7 @@ public class InventoryDisplay extends WindowTemplate {
         return label;
     }
 
+    // EFFECTS: creates a display panel to hold an item with name and quantity
     private static JPanel itemPanel() {
         JPanel panel = new JPanel() {
             @Override
@@ -70,5 +82,15 @@ public class InventoryDisplay extends WindowTemplate {
         panel.setLayout(new BorderLayout(0, 0));
         panel.setBorder(new EmptyBorder(0, 27, 0, 27));
         return panel;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds messages to screen if inventory is empty
+    private void emptyMessage() {
+        JLabel label = new JLabel("it's empty in here...");
+        label.setForeground(new Color(255,255,255,100));
+        label.setFont(CashierGame.SOMETYPEMONO.deriveFont(23f));
+        label.setBounds(820, 548, 285, 30);
+        this.add(label, 0);
     }
 }

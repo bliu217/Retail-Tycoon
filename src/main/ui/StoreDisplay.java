@@ -3,10 +3,10 @@ package ui;
 import model.Cashier;
 
 import javax.swing.*;
-import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+// display for restock inventory store
 public class StoreDisplay extends WindowTemplate {
     protected static JPanel storePanel;
     protected static JPanel purchaseButton;
@@ -17,8 +17,7 @@ public class StoreDisplay extends WindowTemplate {
     private static JLabel balance;
     private static int amount;
 
-
-
+    // EFFECTS: creates display for user to buy items
     public StoreDisplay(Cashier cashier) {
         super(new Color(0xF55353), "STORE", cashier);
         initMessageBox();
@@ -31,10 +30,12 @@ public class StoreDisplay extends WindowTemplate {
         initStore();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes storePanel for itemHolders to be displayed on
     private void initStore() {
         storePanel = new JPanel();
         storePanel.setBounds(290, 400, 1339, 282);
-        GridLayout layout = new GridLayout(4,2);
+        GridLayout layout = new GridLayout(4, 2);
         layout.setHgap(165);
         layout.setVgap(30);
         storePanel.setLayout(layout);
@@ -42,7 +43,8 @@ public class StoreDisplay extends WindowTemplate {
         this.add(storePanel, 0);
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+
+    // EFFECTS: initializes panel to display current user balance
     private void balance() {
         balanceBox = new JPanel() {
             @Override
@@ -60,10 +62,17 @@ public class StoreDisplay extends WindowTemplate {
                 g2d.dispose();
             }
         };
+        balanceBoxSetup();
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets up the balanceBox and adds it to this panel
+    private void balanceBoxSetup() {
         balanceBox.setOpaque(false);
         balanceBox.setLayout(new BorderLayout());
         balanceBox.setBounds(1507, 240, 172, 60);
-        balanceBox.setBackground(new Color(0,0, 0, 75));
+        balanceBox.setBackground(new Color(0, 0, 0, 75));
         balance = new JLabel("$" + cashier.getBalance());
         balance.setForeground(Color.white);
         balance.setFont(CashierGame.SOMETYPEMONO_BOLD.deriveFont(40f));
@@ -71,13 +80,14 @@ public class StoreDisplay extends WindowTemplate {
         balance.setHorizontalAlignment(SwingConstants.CENTER);
         balanceBox.add(balance, BorderLayout.CENTER);
         this.add(balanceBox, 0);
-
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a purchase button
     private void purchasePanel() {
         JPanel bluePanel = new JPanel();
         bluePanel.setBackground(new Color(0x143F6B));
-        bluePanel.setBounds(829, 752,869, 106);
+        bluePanel.setBounds(829, 752, 869, 106);
         this.add(bluePanel, 0);
 
         JPanel redPanel = new JPanel();
@@ -97,6 +107,7 @@ public class StoreDisplay extends WindowTemplate {
         this.add(redPanel, 0);
     }
 
+    // EFFECTS: creates a box to display total purchase price
     private void genWhiteBox() {
         whitePanel = new JPanel() {
             @Override
@@ -118,12 +129,10 @@ public class StoreDisplay extends WindowTemplate {
         whitePanel.setBackground(Color.white);
         whitePanel.setOpaque(false);
         whitePanel.setBorder(new EmptyBorder(0, 10, 0, 10));
-        whitePanel.setLayout(new BorderLayout(0,0));
+        whitePanel.setLayout(new BorderLayout(0, 0));
     }
 
-
-
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    // EFFECTS: creates rounded purchase button
     private void purchaseButton() {
         purchaseButton = new JPanel() {
             @Override
@@ -141,6 +150,11 @@ public class StoreDisplay extends WindowTemplate {
                 g2d.dispose();
             }
         };
+        purchaseButtonSetup();
+    }
+
+    // EFFECTS: purchase button setup to add text
+    private void purchaseButtonSetup() {
         purchaseButton.setBackground(new Color(0xFEB139));
         purchaseButton.setPreferredSize(new Dimension(308, 56));
         purchaseButton.setOpaque(false);
@@ -152,8 +166,9 @@ public class StoreDisplay extends WindowTemplate {
         purchaseButton.add(label);
     }
 
+    // EFFECTS: adds the dollar sign to the whiteBox
     private void purchaseAmount() {
-        JLabel dollar =  new JLabel("$");
+        JLabel dollar = new JLabel("$");
         dollar.setFont(CashierGame.SOMETYPEMONO_BOLD.deriveFont(40f));
         dollar.setForeground(new Color(0x143F6B));
         dollar.setVerticalAlignment(SwingConstants.CENTER);
@@ -161,19 +176,18 @@ public class StoreDisplay extends WindowTemplate {
         whitePanel.add(total, BorderLayout.LINE_END, 0);
     }
 
+    // EFFECTS: initializes the total purchasing amount
     private static void initTotal(int input) {
-
         amount = input;
-
-//        System.out.println("Amount: " + amount);
         total = new JLabel(Integer.toString(amount));
-//        System.out.println("Text: " + total.getText());
         total.setVerticalAlignment(SwingConstants.CENTER);
         total.setFont(CashierGame.SOMETYPEMONO_BOLD.deriveFont(40f));
         total.setForeground(new Color(0x143F6B));
     }
 
+    // EFFECTS: updates total with given input and refreshes display
     public static void refreshTotal(int input) {
+        System.out.println(total.getText());
         whitePanel.remove(total);
         initTotal(input);
         whitePanel.add(total, BorderLayout.LINE_END, 0);
@@ -181,12 +195,15 @@ public class StoreDisplay extends WindowTemplate {
         whitePanel.repaint();
     }
 
+    // EFFECTS: refreshes the cashier balance after a purchase has been made
     public static void refreshBalance() {
         balance.setText("$" + cashier.getBalance());
         balance.revalidate();
         balance.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes message box for error or success message
     private void initMessageBox() {
         message = new JLabel("test");
         message.setBounds(848, 894, 223, 30);
@@ -198,14 +215,13 @@ public class StoreDisplay extends WindowTemplate {
         this.add(message, 0);
     }
 
+    // EFFECTS: changes message text
     public static void changeMessage(String s) {
         message.setVisible(true);
         message.setText(s);
         message.repaint();
         message.revalidate();
     }
-
-
 
 
 }

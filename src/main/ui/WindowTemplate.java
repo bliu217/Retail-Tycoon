@@ -5,11 +5,14 @@ import model.Cashier;
 import javax.swing.*;
 import java.awt.*;
 
+// template for inventory and store displays
 public class WindowTemplate extends JPanel {
 
     protected static JPanel backButton;
     protected static Cashier cashier;
+    private JPanel header;
 
+    // EFFECTS: creates a window with given header color and text, cashier for information access
     public WindowTemplate(Color c, String s, Cashier cashier) {
         this.cashier = cashier;
         setLayout(null);
@@ -21,6 +24,8 @@ public class WindowTemplate extends JPanel {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates background panel
     protected void initPanel() {
         JPanel panel = new JPanel();
         panel.setBounds(204, 129,1512, 821);
@@ -34,10 +39,10 @@ public class WindowTemplate extends JPanel {
 
     }
 
-
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    // MODIFIES: this
+    // EFFECTS: creates header with given color and text
     private void header(Color c, String s) {
-        JPanel panel = new JPanel() {
+        header = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -53,20 +58,26 @@ public class WindowTemplate extends JPanel {
                 g2d.dispose();
             }
         };
-        panel.setOpaque(false);
-        panel.setBounds(671, 165, 577, 112);
-        panel.setBackground(c);
-//        panel.setLayout(new BorderLayout());
+        header.setOpaque(false);
+        header.setBounds(671, 165, 577, 112);
+        header.setBackground(c);
+        headerText(s);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds text to header
+    private void headerText(String s) {
         JLabel label = new JLabel(s);
         label.setFont(CashierGame.SOMETYPEMONO_BOLD.deriveFont(72f));
         label.setForeground(Color.white);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.CENTER);
-        panel.add(label);
-        this.add(panel);
-
+        header.add(label);
+        this.add(header);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a back button
     private void backButton() {
         backButton = new JPanel();
         backButton.setOpaque(false);

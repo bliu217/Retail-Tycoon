@@ -1,27 +1,26 @@
 package ui;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
+
+// main in-game display
 public class MainGameDisplay extends JPanel {
     protected static JPanel textBox;
 
-
+    // EFFECTS: creates a new main game display with side panel and text box
     public MainGameDisplay() {
         setLayout(null);
         setSize(WIDTH, HEIGHT);
         setBackground(new Color(0x00D1FF));
         initTextBox();
         initSidePanel();
-        // add function to switch to inventory/store panel when buttons are clicked
     }
 
+    // MODIFIES: textBox
+    // EFFECTS: initializes textbox
     private void initTextBox() {
         textBox = new JPanel(new GridLayout(6, 1));
         textBox.setBounds(731, 722, 1189, 358);
@@ -30,6 +29,8 @@ public class MainGameDisplay extends JPanel {
         this.add(textBox);
     }
 
+    // MODIFIES: textBox
+    // EFFECTS: adds text to the textbox
     public static void addText(String s) {
         JLabel label = new JLabel(s);
         label.setFont(CashierGame.SOMETYPEMONO_BOLD.deriveFont(32f));
@@ -37,10 +38,8 @@ public class MainGameDisplay extends JPanel {
         textBox.add(label);
     }
 
-    public void refreshTextBox() {
-        textBox.removeAll();
-    }
-
+    // MODIFIES: this
+    // EFFECTS: initializes the side panel
     protected void initSidePanel() {
         JPanel panel1 = new JPanel();
         panel1.setSize(731, 1080);

@@ -4,11 +4,13 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
+// a display for when users choose to start a new game
 public class NewGameDisplay extends JPanel {
     protected static JTextField textField;
     protected static JPanel errorMessage;
 
 
+    // EFFECTS: creates a new game display that prompts user for their save name
     public NewGameDisplay() {
         setLayout(null);
         setSize(WIDTH, HEIGHT);
@@ -19,6 +21,8 @@ public class NewGameDisplay extends JPanel {
         newErrorMessage();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates user prompt message
     private void initMessage() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(2,1));
@@ -38,12 +42,16 @@ public class NewGameDisplay extends JPanel {
         this.add(panel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates white line
     private void initNameLine() {
         JPanel line = new JPanel();
         line.setBounds(673, 671, 574,3);
         this.add(line);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a text field for user to input name
     private void initTextBox() {
         textField = new JTextField() {
             @Override public void setBorder(Border border) {
@@ -58,11 +66,13 @@ public class NewGameDisplay extends JPanel {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates error message to indicate that an incorrect name has been entered
     private void newErrorMessage() {
         errorMessage = new JPanel();
         errorMessage.setOpaque(false);
         errorMessage.setBounds(674, 733, 571, 30);
-        JLabel label = new JLabel("NAME MUST BE LESS THAN 20 CHARACTERS LONG");
+        JLabel label = new JLabel("NAME MUST BE 1 - 20 CHARACTERS LONG");
         label.setFont(CashierGame.SOMETYPEMONO_BOLDITALIC.deriveFont(24f));
         label.setForeground(Color.white);
         label.setHorizontalAlignment(SwingConstants.CENTER);
