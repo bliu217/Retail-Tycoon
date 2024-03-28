@@ -32,3 +32,15 @@ than the company I worked for (in terms of user interface).
 - As a user, I want to see my score and store balance
 - As a user, I want to have the option to save my in-game progress when I close the application
 - As a user, I want to have the option to load a new game or load from the previous save
+
+## Instructions for Grader
+
+- To generate the first action (adding Items to Cashier inventory), first click "New Game", enter a save
+name, click "STORE", and press the green plus buttons to add some items to cart, then click purchase.
+- To generate the second action (viewing Items added to Cashier inventory), exit the "STORE" by pressing the
+"BACK" button, then clicking the purple "INVENTORY" button to see the items.
+- The visual component can viewed when you start the game ("RETAIL TYCOON" logo, as well as the copyright message
+at the bottom)
+- The option to load previously saved data is in the main menu when you press "Load Game"
+- The option to save current data is in the game between transactions, a green "SAVE" button located in the top
+right.
