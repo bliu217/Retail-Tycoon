@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import java.util.List;
 import java.util.Random;
@@ -32,9 +31,7 @@ public class CashierGame extends JFrame {
     private List<Cashier> highscores;
     private List<String> customerNames;
     private List<Item> itemList;
-    private boolean runGame;
     protected static boolean freshGame;
-    private Scanner input;
     Random random = new Random();
     private Customer customer;
     private int strikeNumber;
@@ -115,6 +112,7 @@ public class CashierGame extends JFrame {
             highscores = scores.getScores();
         } catch (Exception e) {
             System.out.println("error");
+
         }
 
     }
@@ -124,34 +122,8 @@ public class CashierGame extends JFrame {
         initScores();
         initKeyHandler();
         changeScene(new StartScreenDisplay());
-//        currentPanel = new StartScreenDisplay(); //uncomment when done testing
-//        add(currentPanel);
         setVisible(true);
-
-        menu();// uncomment when done testing
-
-//        startDisplay();
-//        input = new Scanner(System.in);
-//        String nextCommand = input.next();
-//        nextCommand = nextCommand.toLowerCase();
-//
-//        if (nextCommand.equals("n")) {
-//            freshGame = true;
-//            cashier = new Cashier(0, START_BALANCE);
-//            System.out.println("Enter save name: ");
-//            cashier.setSaveName(input.next());
-//            playGame();
-//        } else if (nextCommand.equals("s")) {
-//            viewScores();
-//        } else if (nextCommand.equals("0")) {
-//            System.exit(0);
-//        } else if (nextCommand.equals("l")) {
-//            loadGame();
-//            freshGame = false;
-//            playGame();
-//        } else {
-//            runCashierGame();
-//        }
+        menu();
     }
 
     // MODIFIES: cashier, this
@@ -242,12 +214,10 @@ public class CashierGame extends JFrame {
             MainMenu.addText("Progress saved.");
             revalidate();
             repaint();
-//            System.out.println("Progress saved");
         } catch (FileNotFoundException e) {
             MainMenu.addText("Unable to save progress: file error");
             revalidate();
             repaint();
-//            System.out.println("Unable to save progress: file error");
         }
     }
 
@@ -330,13 +300,6 @@ public class CashierGame extends JFrame {
                 }
             }
         });
-//            System.out.println(customer.getName() + ": Scan these items please");
-//            checkout();
-//        if (cashier.getBalance() <= 0 | strikeNumber == 3) {
-//            break;
-//        }
-
-//            nextOptions();
 
     }
 
@@ -392,41 +355,7 @@ public class CashierGame extends JFrame {
         initItems();
         nextOptions(false);
         init();
-//        System.out.println("test");
-//        while (runGame) {
-//            strikeNumber = 0;
-//            generateCustomer();
-//
-//            System.out.println(customer.getName() + ": Scan these items please");
-//            checkout();
-//            if (cashier.getBalance() <= 0 | strikeNumber == 3) {
-//                break;
-//            }
-//
-//            if (cashier.getInventory().isEmpty()) {
-//                System.out.println("Your inventory is empty, please restock!\n");
-//                viewStore();
-//            }
-//            nextOptions();
-//        }
-//        System.out.println("Game Over!");
-//        addHighscore(cashier);
-//        cashier = new Cashier(0,START_BALANCE);
-//        saveGame();
-//        runCashierGame();
     }
-
-
-//    // EFFECTS: on screen printouts to prompt user input for desired action
-//    private void menuDisplay() {
-//        System.out.println("Current Balance: $" + cashier.getBalance());
-//        System.out.println("Current Score: " + cashier.getScore() + " pts\n");
-//        System.out.println("open business [o]");
-//        System.out.println("restock inventory [r]");
-//        System.out.println("view inventory [i]");
-//        System.out.println("save [s]");
-//        System.out.println("quit game [0]");
-//    }
 
     // EFFECTS: intializes save and quit buttons
     private void saveAndQuit() {
@@ -467,77 +396,7 @@ public class CashierGame extends JFrame {
 
         saveAndQuit();
         mainButtons();
-
-//        menuDisplay();
-//        String nextCommand = input.next();
-//        nextCommand = nextCommand.toLowerCase();
-//
-//        if (nextCommand.equals("o")) {
-//            runGame = true;
-//        } else if (nextCommand.equals("r")) {
-//            viewStore();
-//        } else if (nextCommand.equals("i")) {
-//            viewInventory();
-//            nextOptions();
-//        } else if (nextCommand.equals("s")) {
-//            saveGame();
-//            nextOptions();
-//        } else if (nextCommand.equals("0")) {
-//            System.out.println("Quitting game...");
-//            System.exit(0);
-//        } else {
-//            nextOptions();
-//        }
     }
-
-
-    // MODIFIES: this, customer
-    // EFFECTS: performs the checkout of the customer items, adds profits to balance appropriately or fails the game
-//    private void checkout() {
-//        List<Item> items = customer.getItems();
-//        while (!(items.isEmpty())) {
-//            scanItems();
-//            System.out.println("Add to checkout: (type items)");
-//            String itemInput = input.next();
-//            if (customer.searchAndRemoveItem(itemInput)) {
-//                System.out.println("Success!\n");
-//                cashier.transaction(itemInput);
-//                checkout();
-//            } else {
-//                strikeNumber++;
-//                if (strikeNumber == 3) {
-//                    System.out.println("You're Fired!");
-//                    items.clear();
-//                    break;
-//                }
-//                System.out.println("Item not in customer checkout list");
-//                System.out.println("Strike (" + strikeNumber + "/3)");
-//                cashier.removeBalance(30);
-//                checkout();
-//            }
-//        }
-//        cashier.addBalance(customer.itemProfits());
-//    }
-
-//    // EFFECTS: prints out the list of customer items needed to be scanned
-//    private void scanItems() {
-//        System.out.println("----------Checkout-----------");
-//        for (Item i : customer.getItems()) {
-//            System.out.println(i.getName());
-//        }
-//        System.out.println("-----------------------------");
-//    }
-
-//    // EFFECTS: startup message for first creating a new game, includes buying first inventory for shop
-//    private void newGameMessage() {
-//        MainGameDisplay.addText("Welcome to your first shift: " + cashier.getSaveName() + "!");
-//        MainGameDisplay.addText("Let's buy some inventory for your store.");
-//        revalidate();
-////        System.out.println("Welcome to your first shift: " + cashier.getSaveName() + "!");
-////        System.out.println("Let's buy some inventory for your store.\n");
-////        viewStore();
-////        System.out.println("Here comes your first customer.");
-//    }
 
 
     // MODIFIES: this
@@ -548,55 +407,8 @@ public class CashierGame extends JFrame {
         for (ItemHolder holder : holders) {
             purchaseTotal += holder.getTotal();
         }
-        System.out.println("purchaseTotal: " + purchaseTotal);
         StoreDisplay.refreshTotal(purchaseTotal);
-
-
-//        System.out.println("Type the number of the item you would like to stock: (type 0 to exit)");
-//        int option = input.nextInt();
-//
-//        if (option == 0) {
-//            if (cashier.getInventory().isEmpty()) {
-//                System.out.println("Your inventory is empty, please restock!\n");
-//                processStore();
-//            } else {
-//                runGame = true;
-//            }
-//        } else {
-//
-//            int index = option - 1;
-//            Item currentItem = itemList.get(index);
-//            System.out.println("Type the quantity of item: ");
-//            int quantity = input.nextInt();
-//            purchaseQuantity(quantity, currentItem);
-//
-//        }
     }
-
-    // MODIFIES: this
-    // EFFECTS: purchases a quantity items. If given a quantity <= 0,
-    // keep prompting user for valid quantity of items.
-
-//    private void purchaseQuantity(int quantity, Item currentItem) {
-//        boolean invalid;
-//
-//        if (quantity <= 0) {
-//            invalid = true;
-//            while (invalid) {
-//                System.out.println("Invalid quantity. Try again:");
-//                quantity = input.nextInt();
-//                if (quantity > 0) {
-//                    invalid = false;
-//                }
-//            }
-//        }
-//
-//        if (cashier.purchaseInventory(currentItem, quantity)) {
-//            System.out.println("Success! x" + quantity + " " + currentItem.getName() + " added to inventory.");
-//        } else {
-//            System.out.println("Insufficient funds!");
-//        }
-//    }
 
     // EFFECTS: displays the available items for cashier to buy for inventory
     private void viewStore() {
@@ -616,19 +428,7 @@ public class CashierGame extends JFrame {
             revalidate();
         }
         activatePurchase();
-
-
-//        System.out.println("------------Store------------");
-//        System.out.println("Balance: $" + cashier.getBalance());
-//        for (int i = 0; i < itemList.size(); i++) {
-//            Item item = itemList.get(i);
-//            int index = i + 1;
-//            System.out.println("\t" + "[" + index + "] " + item.getName() + " |$" + item.getBuyPrice());
-//        }
-//        System.out.println("-----------------------------\n");
         processStore();
-
-//        nextOptions();
 
     }
 
@@ -662,33 +462,6 @@ public class CashierGame extends JFrame {
             }
         });
     }
-
-    // EFFECTS: prints out the highscores of current session
-//    private void viewScores() {
-//        System.out.println("---------High Scores---------\n");
-//        printHighscores();
-//        System.out.println("-----------------------------\n");
-//        System.out.println("return to menu [M]");
-//
-//
-//        String nextCommand = input.next();
-//        nextCommand = nextCommand.toLowerCase();
-//        if (nextCommand.equals("m")) {
-//            runCashierGame();
-//        } else {
-//            viewScores();
-//        }
-//    }
-//
-//
-//    // EFFECTS: prints out the messages for the main menu on startup
-//    private void startDisplay() {
-//        System.out.println("Welcome to the Cashier Game\n");
-//        System.out.println("New Game [press N]");
-//        System.out.println("Load Game [press L]");
-//        System.out.println("View Scores [press S]");
-//        System.out.println("Exit Game [press 0]");
-//    }
 
     // EFFECTS: adds highscore and ranks it among current scores. highscore.size()<MAX_SCORES, otherwise
     // remove the lowest score.
@@ -776,22 +549,6 @@ public class CashierGame extends JFrame {
                 alreadyListed.add(i);
             }
         }
-
-//        System.out.println("----------Inventory----------");
-//        List<Item> alreadyListed = new ArrayList<>();
-//
-//        if (cashier.getInventory().isEmpty()) {
-//            System.out.println("Empty Inventory! Restock Immediately.");
-//            return;
-//        }
-//
-//        for (Item i : cashier.getInventory()) {
-//            if (!alreadyListed.contains(i)) {
-//                System.out.println(i.getName() + " | x" + cashier.itemFrequency(i));
-//                alreadyListed.add(i);
-//            }
-//        }
-//        System.out.println("-----------------------------\n");
     }
 
     // EFFECTS: intializes the fonts for the program
@@ -830,7 +587,6 @@ public class CashierGame extends JFrame {
                 if (cashier.getInventory().size() == 0) {
                     MainMenu.addText("Please restock your inventory!");
                 } else {
-                    runGame = true;
                     runGame();
                 }
             }

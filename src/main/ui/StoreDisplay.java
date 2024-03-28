@@ -187,7 +187,6 @@ public class StoreDisplay extends WindowTemplate {
 
     // EFFECTS: updates total with given input and refreshes display
     public static void refreshTotal(int input) {
-        System.out.println(total.getText());
         whitePanel.remove(total);
         initTotal(input);
         whitePanel.add(total, BorderLayout.LINE_END, 0);

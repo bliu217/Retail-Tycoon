@@ -113,15 +113,13 @@
         }
     ],
     "Cashier": {
-        "score": 7,
-        "balance": 98,
+        "score": 16,
+        "balance": 8,
         "saveName": "d",
         "inventory": [
-            {"name": "Banana"},
-            {"name": "Banana"},
-            {"name": "Banana"},
-            {"name": "Goodwater"},
-            {"name": "Goodwater"},
+            {"name": "DogFood"},
+            {"name": "DogFood"},
+            {"name": "DogFood"},
             {"name": "Goodwater"},
             {"name": "Goodwater"}
         ]
