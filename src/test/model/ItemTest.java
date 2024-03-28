@@ -58,8 +58,15 @@ class ItemTest {
 
     @Test
     void testEquals() {
+        assertNotEquals(hunnit, null);
         assertEquals(hunnit, hunnit);
         assertEquals(hunnit, overHunnit);
         assertNotEquals(hunnit, another);
+    }
+
+    @Test
+    void testHashCode() {
+        assertEquals(hunnit.hashCode(), overHunnit.hashCode());
+        assertNotEquals(hunnit.hashCode(), another.hashCode());
     }
 }
