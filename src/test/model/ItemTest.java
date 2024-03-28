@@ -62,6 +62,7 @@ class ItemTest {
         assertEquals(hunnit, hunnit);
         assertEquals(hunnit, overHunnit);
         assertNotEquals(hunnit, another);
+        assertNotEquals(hunnit, new Cashier(39, 3));
     }
 
     @Test
