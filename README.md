@@ -44,3 +44,10 @@ at the bottom)
 - The option to load previously saved data is in the main menu when you press "Load Game"
 - The option to save current data is in the game between transactions, a green "SAVE" button located in the top
 right.
+
+## Phase 4 Task 2
+
+Thu Apr 04 23:45:31 PDT 2024\
+Added Banana to Bernard's inventory.\
+Thu Apr 04 23:45:38 PDT 2024\
+Bernard sold a Notebook

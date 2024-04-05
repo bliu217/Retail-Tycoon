@@ -106,8 +106,12 @@
         }
     ],
     "Cashier": {
-        "score": 0,
-        "balance": 100,
-        "inventory": []
+        "score": 6,
+        "balance": 86,
+        "saveName": "Bernard",
+        "inventory": [
+            {"name": "Notebook"},
+            {"name": "Notebook"}
+        ]
     }
 }
