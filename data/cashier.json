@@ -60,6 +60,12 @@
             ]
         },
         {
+            "score": 240,
+            "balance": -14,
+            "saveName": "fdgfgjhkjlk;",
+            "inventory": [{"name": "DogFood"}]
+        },
+        {
             "score": 200,
             "balance": 135,
             "saveName": "Jaeyoung",
@@ -81,6 +87,12 @@
             ]
         },
         {
+            "score": 200,
+            "balance": -10,
+            "saveName": "j",
+            "inventory": [{"name": "Microwave"}]
+        },
+        {
             "score": 156,
             "balance": 68,
             "saveName": "Bern",
@@ -91,37 +103,11 @@
                 {"name": "Banana"},
                 {"name": "Goodwater"}
             ]
-        },
-        {
-            "score": 120,
-            "balance": 47,
-            "saveName": "grrgrgrgrg",
-            "inventory": [
-                {"name": "Goodwater"},
-                {"name": "Goodwater"},
-                {"name": "Goodwater"}
-            ]
-        },
-        {
-            "score": 120,
-            "balance": 22,
-            "saveName": "JJ",
-            "inventory": [
-                {"name": "DogFood"},
-                {"name": "DogFood"}
-            ]
         }
     ],
     "Cashier": {
-        "score": 16,
-        "balance": 8,
-        "saveName": "d",
-        "inventory": [
-            {"name": "DogFood"},
-            {"name": "DogFood"},
-            {"name": "DogFood"},
-            {"name": "Goodwater"},
-            {"name": "Goodwater"}
-        ]
+        "score": 0,
+        "balance": 100,
+        "inventory": []
     }
 }

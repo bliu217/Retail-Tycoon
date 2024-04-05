@@ -15,6 +15,7 @@ public class Cashier implements Writable {
     private Integer balance;
     private List<Item> inventory;
     private List<Item> itemList;
+    private final EventLog logger = EventLog.getInstance();
 
 
     // EFFECTS: Construct a new cashier with score of 0, no saveName, a balance of START_BALANCE,
@@ -62,6 +63,7 @@ public class Cashier implements Writable {
             this.balance -= totalPrice;
             for (int i = 0; i < quantity; i++) {
                 this.inventory.add(item);
+                logger.logEvent(new Event("Added " + item.getName() + " to " + saveName + "'s inventory."));
             }
             return true;
         }
@@ -117,6 +119,7 @@ public class Cashier implements Writable {
         for (Item i : inventory) {
             if (i.getName().equals(itemName)) {
                 this.inventory.remove(i);
+                logger.logEvent(new Event(saveName + " sold a " + itemName));
                 addBalance(i.getSellPrice());
                 addScore(i.scoreCalculation());
                 break;

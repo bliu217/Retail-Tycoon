@@ -1,11 +1,9 @@
 package ui;
 
 
-import model.Cashier;
-import model.Customer;
-import model.Highscores;
-import model.Item;
+import model.*;
 
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -26,6 +24,7 @@ public class CashierGame extends JFrame {
 
     private static final String JSON_SOURCE = "./data/cashier.json";
     private static final int MAX_SCORES = 10;
+    private final EventLog logger = EventLog.getInstance();
 
     private Cashier cashier;
     private List<Cashier> highscores;
@@ -184,6 +183,7 @@ public class CashierGame extends JFrame {
         StartScreenDisplay.quit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                printLog(logger);
                 System.exit(0);
             }
         });
@@ -591,5 +591,11 @@ public class CashierGame extends JFrame {
                 }
             }
         });
+    }
+
+    private void printLog(EventLog log) {
+        for (Event e : log) {
+            System.out.println(e.toString());
+        }
     }
 }
