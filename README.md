@@ -47,6 +47,8 @@ right.
 
 ## Phase 4 Task 2
 
+Example of text:
+
 Thu Apr 04 23:45:31 PDT 2024\
 Added Banana to Bernard's inventory.\
 Thu Apr 04 23:45:38 PDT 2024\
