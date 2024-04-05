@@ -10,7 +10,7 @@ import java.awt.*;
 public class StoreDisplay extends WindowTemplate {
     protected static JPanel storePanel;
     protected static JPanel purchaseButton;
-    private static JPanel whitePanel;
+    private static JPanel totalPanel;
     private static JLabel total;
     protected static JLabel message;
     private static JPanel balanceBox;
@@ -101,7 +101,7 @@ public class StoreDisplay extends WindowTemplate {
         label.setVerticalAlignment(SwingConstants.CENTER);
         redPanel.add(label);
         redPanel.add(Box.createHorizontalStrut(17));
-        redPanel.add(whitePanel);
+        redPanel.add(totalPanel);
         redPanel.add(Box.createHorizontalStrut(34));
         redPanel.add(purchaseButton);
         this.add(redPanel, 0);
@@ -109,7 +109,7 @@ public class StoreDisplay extends WindowTemplate {
 
     // EFFECTS: creates a box to display total purchase price
     private void genWhiteBox() {
-        whitePanel = new JPanel() {
+        totalPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -125,11 +125,11 @@ public class StoreDisplay extends WindowTemplate {
                 g2d.dispose();
             }
         };
-        whitePanel.setPreferredSize(new Dimension(288, 84));
-        whitePanel.setBackground(Color.white);
-        whitePanel.setOpaque(false);
-        whitePanel.setBorder(new EmptyBorder(0, 10, 0, 10));
-        whitePanel.setLayout(new BorderLayout(0, 0));
+        totalPanel.setPreferredSize(new Dimension(288, 84));
+        totalPanel.setBackground(Color.white);
+        totalPanel.setOpaque(false);
+        totalPanel.setBorder(new EmptyBorder(0, 10, 0, 10));
+        totalPanel.setLayout(new BorderLayout(0, 0));
     }
 
     // EFFECTS: creates rounded purchase button
@@ -172,8 +172,8 @@ public class StoreDisplay extends WindowTemplate {
         dollar.setFont(CashierGame.SOMETYPEMONO_BOLD.deriveFont(40f));
         dollar.setForeground(new Color(0x143F6B));
         dollar.setVerticalAlignment(SwingConstants.CENTER);
-        whitePanel.add(dollar, BorderLayout.LINE_START);
-        whitePanel.add(total, BorderLayout.LINE_END, 0);
+        totalPanel.add(dollar, BorderLayout.LINE_START);
+        totalPanel.add(total, BorderLayout.LINE_END, 0);
     }
 
     // EFFECTS: initializes the total purchasing amount
@@ -187,11 +187,11 @@ public class StoreDisplay extends WindowTemplate {
 
     // EFFECTS: updates total with given input and refreshes display
     public static void refreshTotal(int input) {
-        whitePanel.remove(total);
+        totalPanel.remove(total);
         initTotal(input);
-        whitePanel.add(total, BorderLayout.LINE_END, 0);
-        whitePanel.revalidate();
-        whitePanel.repaint();
+        totalPanel.add(total, BorderLayout.LINE_END, 0);
+        totalPanel.revalidate();
+        totalPanel.repaint();
     }
 
     // EFFECTS: refreshes the cashier balance after a purchase has been made

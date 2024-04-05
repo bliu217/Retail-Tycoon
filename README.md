@@ -26,7 +26,7 @@ than the company I worked for (in terms of user interface).
 
 ## User Stories
 
-- As a user, I want to checkout the items of the customer
+- As a user, I want to check out the items of the customer
 - As a user, I want to be able to see a list of my high scores
 - As a user, I want to purchase goods for my store and manage inventory
 - As a user, I want to see my score and store balance
@@ -47,9 +47,21 @@ right.
 
 ## Phase 4 Task 2
 
-Example of text:
+Example of log output:
 
 Thu Apr 04 23:45:31 PDT 2024\
 Added Banana to Bernard's inventory.\
 Thu Apr 04 23:45:38 PDT 2024\
 Bernard sold a Notebook
+
+## Phase 4 Task 3
+
+If I had more time to work on this project, I would most likely follow the SRP principle more in my UI classes.
+For example, even though each class represents only one scene, it has many components that could be split up into
+different classes. This is apparent in the MainMenu class, where I could split the buttons and user info display into
+two different classes. I could also refactor the customer's cart panel into it's separate class because it has
+a completely different function compared to the rest of the class. As for my StoreDisplay and ItemHolder, I could
+implement the Observers pattern since there are 3 things that update visually every time a plus or minus button is 
+pressed. That being said, I would split the 2 elements in the StoreDisplay(totalPanel, balanceBox + balance) into 
+separate classes which would each listen to the itemHolders present in the StoreDisplay. I might also introduce a
+Counter class to add to ItemHolder, which would also listen to the buttons and have the responsibilities of the qtyPanel. 
