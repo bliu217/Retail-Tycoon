@@ -66,6 +66,15 @@
             "inventory": [{"name": "DogFood"}]
         },
         {
+            "score": 240,
+            "balance": 0,
+            "saveName": "John",
+            "inventory": [
+                {"name": "Microwave"},
+                {"name": "Microwave"}
+            ]
+        },
+        {
             "score": 200,
             "balance": 135,
             "saveName": "Jaeyoung",
@@ -91,27 +100,11 @@
             "balance": -10,
             "saveName": "j",
             "inventory": [{"name": "Microwave"}]
-        },
-        {
-            "score": 156,
-            "balance": 68,
-            "saveName": "Bern",
-            "inventory": [
-                {"name": "Detergent"},
-                {"name": "Banana"},
-                {"name": "Banana"},
-                {"name": "Banana"},
-                {"name": "Goodwater"}
-            ]
         }
     ],
     "Cashier": {
-        "score": 6,
-        "balance": 86,
-        "saveName": "Bernard",
-        "inventory": [
-            {"name": "Notebook"},
-            {"name": "Notebook"}
-        ]
+        "score": 0,
+        "balance": 100,
+        "inventory": []
     }
 }
